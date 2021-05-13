@@ -1,26 +1,60 @@
+import React, { useState } from "react";
+
 const Countries = (props) => {
+  const [filt, setFiltList] = useState([]);
+
   const filtered = props.countries.filter((p) =>
     p.name.toLowerCase().includes(props.filtStr.toLowerCase())
   );
-  if (filtered.length > 10) {
-    return <div>Too many matches, specify another filter</div>;
+
+  const showHandler = (event) => {
+    setFiltList(props.countries.filter((p) =>
+      p.name.toLowerCase().includes(event.target.value.toLowerCase())))
+  };
+
+  if (filt.length === 0) {
+    if (filtered.length > 10) {
+      return <div>Too many matches, specify another filter</div>;
+    }
+  
+    if (filtered.length === 1) {
+      const c = filtered[0];
+      return (
+        <Country
+          name={c.name}
+          capital={c.capital}
+          population={c.population}
+          languages={c.languages}
+          flag={c.flag}
+        />
+      );
+    }
+  
+    return filtered.map((c) => (
+      <CountryShort key={c.name} name={c.name} clickHandler={showHandler} />
+    ));
   }
 
-  if (filtered.length === 1) {
-    const c = filtered[0];
-    return (
-      <Country
-        name={c.name}
-        capital={c.capital}
-        population={c.population}
-        languages={c.languages}
-        flag={c.flag}
-      />
-    );
-  }
-
-  return filtered.map((c) => <p key={c.name}>{c.name}</p>);
+  const c = filt[0];
+  return (
+    <Country
+      name={c.name}
+      capital={c.capital}
+      population={c.population}
+      languages={c.languages}
+      flag={c.flag}
+    />
+  );
 };
+
+const CountryShort = (props) => (
+  <div>
+    {props.name}
+    <button onClick={props.clickHandler} value={props.name}>
+      show
+    </button>
+  </div>
+);
 
 const Country = (props) => (
   <div>
