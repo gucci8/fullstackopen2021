@@ -6,8 +6,6 @@ const App = () => {
   const [ countries, setCountries ] = useState([]) 
   const [ filtStr, setFiltStr ] = useState('')
 
-  const api_key = process.env.REACT_APP_API_KEY
-
   const handleFiltStrChange = (event) => {
     setFiltStr(event.target.value)
   }
