@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios'
 
 const Countries = (props) => {
   const [filt, setFiltList] = useState([]);
@@ -66,8 +67,39 @@ const Country = (props) => (
       <Languages languages={props.languages} />
     </ul>
     <img src={props.flag} alt="Flag" width="250" height="150" />
+    <h3>Weather in {props.capital}</h3>
+    <Weather city={props.capital} />
   </div>
 );
+
+
+const getWeather = async(capital) => {
+  const api_key = process.env.REACT_APP_API_KEY
+  const response = await axios.get(`api.openweathermap.org/data/2.5/weather?q=${capital}&appid=${api_key}`)
+  return response.data
+}
+
+const Weather = (props) => {
+  const [ weat, setWeather ] = useState()
+
+  getWeather(props.city).then(d => setWeather(d))
+
+  if (weat !== undefined) {
+    return (
+      <div>
+        <p>weather: {weat.weather[0].description}</p>
+        <p>temperature: {weat.main.temp - 273.15} degrees Celsius</p>
+        <p>wind: {weat.wind.speed} m/s, from {weat.wind.deg} degrees</p>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <p>weather: Sunny :)</p>
+    </div>
+  )
+}
 
 const Languages = (props) => {
   return props.languages.map((l) => <li key={l.name}>{l.name}</li>);
