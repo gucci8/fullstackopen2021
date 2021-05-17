@@ -11,8 +11,15 @@ const Persons = (props) => {
     p.name.toLowerCase().includes(props.filtStr.toLowerCase())
   )
 
-  return filtered.map((person) =>
-    <Person key={person.id} person={person} deletePerson={props.deletePerson(person.name, person.id)} />
+  return (
+    <table>
+      <tbody>
+        {filtered.map((person) =>
+          <Person key={person.id} person={person} deletePerson={props.deletePerson(person.name, person.id)} />
+        )}
+      </tbody>
+    </table>
+    
   )
 }
 
