@@ -1,13 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom';
-import App from './App'
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import service from "./services/util.js";
 
-import axios from 'axios'
+const persons = service.getAll();
 
-axios.get('http://localhost:3001/api/persons').then(response => {
-  const persons = response.data
-  ReactDOM.render(
-    <App persons={persons} />,
-    document.getElementById('root')
-  )
-})
+ReactDOM.render(<App persons={persons} />, document.getElementById("root"));
