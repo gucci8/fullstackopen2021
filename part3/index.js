@@ -1,11 +1,15 @@
 const express = require("express");
 const app = express();
 var morgan = require("morgan");
+const cors = require("cors");
 
-morgan.token('body', (req) => JSON.stringify(req.body))
+morgan.token("body", (req) => JSON.stringify(req.body));
 
 app.use(express.json());
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms :body")
+);
+app.use(cors());
 
 let persons = [
   {
@@ -89,6 +93,14 @@ app.post("/api/persons", (request, response) => {
   };
 
   persons = persons.concat(person);
+
+  response.json(person);
+});
+
+app.put("/api/persons/:id", (request, response) => {
+  const id = Number(request.params.id);
+  const person = request.body
+  persons = persons.filter((p) => p.id !== id).concat(person)
 
   response.json(person);
 });
