@@ -7,3 +7,17 @@ content-type: application/json
   "url": "http://burgers.gov",
   "likes": "9000"
 }
+
+###
+DELETE http://localhost:3003/api/blogs/60ad3874fae14f1cb45fa1ae HTTP/1.1
+
+###
+PUT http://localhost:3003/api/blogs/60a8bb12795f212504c70978 HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Guccin wellingtonblogi",
+  "author": "Kusti",
+  "url": "http://beefwellingtons.fi",
+  "likes": "1917"
+}
