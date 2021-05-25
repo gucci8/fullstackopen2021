@@ -4,6 +4,6 @@ content-type: application/json
 {
   "title": "Kustin ruokaploki",
   "author": "Kusti",
-  "url": "http://tacos.gov",
+  "url": "http://burgers.gov",
   "likes": "9000"
 }
