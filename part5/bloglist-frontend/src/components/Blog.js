@@ -5,7 +5,7 @@ const Blog = (props) => {
 
   const hideWhenVisible = { display: visible ? 'none' : '' }
   const showWhenVisible = { display: visible ? '' : 'none' }
-  
+
   const showRemoveButton = { display: (props.loggedUser.username !== props.blog.user.username) ? 'none' : '' }
 
   const toggleVisibility = () => {
@@ -15,10 +15,10 @@ const Blog = (props) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
-    border: "solid",
+    border: 'solid',
     borderWidth: 1,
     marginBottom: 5,
-  };
+  }
 
   return (
     <div style={blogStyle} key={props.blog.id}>

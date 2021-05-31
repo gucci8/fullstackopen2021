@@ -24,7 +24,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs.sort((a, b) => b.likes - a.likes) )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -85,9 +85,9 @@ const App = () => {
     if (window.confirm(`Delete ${blog.title} by ${blog.author}?`)) {
       try {
         await blogService.deleteBlog(blog.id)
-        setBlogs(blogs.filter(b => b.id !== blog.id));
+        setBlogs(blogs.filter(b => b.id !== blog.id))
         showError(`Removed ${blog.title} successfully.`, 'green')
-      } catch {
+      } catch (error) {
         showError(`Blog ${blog.title} has already been removed from the server`, 'red')
       }
     }
@@ -116,23 +116,20 @@ const App = () => {
       setErrorMessage({ msg: null })
     }, 3000)
   }
- 
+
   if (user === null) {
     return (
       <div>
-        <Togglable
-          buttonLabel={'login'}
-          children={
-            <LoginForm
-              username={username}
-              password={password}
-              usernameHandler={(event) => { setUsername(event.target.value) }}
-              passwordHandler={(event) => { setPassword(event.target.value) }}
-              login={handleLogin}
-              errorMessage={errorMessage}
-            />
-          }
-        />
+        <Togglable buttonLabel={'login'} >
+          <LoginForm
+            username={username}
+            password={password}
+            usernameHandler={(event) => { setUsername(event.target.value) }}
+            passwordHandler={(event) => { setPassword(event.target.value) }}
+            login={handleLogin}
+            errorMessage={errorMessage}
+          />
+        </Togglable>
         <BlogsSimple
           key='bloglist'
           blogs={blogs}
@@ -152,20 +149,17 @@ const App = () => {
       />
       Logged in as {user.name}
       <button onClick={handleLogout}>log out</button>
-      <Togglable
-        buttonLabel={'create new blog'}
-        children={
-          <BlogForm
-            submitBlog={submitBlog}
-            title={title}
-            author={author}
-            url={url}
-            titleHandler={(event) => {setTitle(event.target.value)}}
-            authorHandler={(event) => {setAuthor(event.target.value)}}
-            urlHandler={(event) => {setUrl(event.target.value)}}
-          />
-        }
-      />
+      <Togglable buttonLabel={'create new blog'} >
+        <BlogForm
+          submitBlog={submitBlog}
+          title={title}
+          author={author}
+          url={url}
+          titleHandler={(event) => {setTitle(event.target.value)}}
+          authorHandler={(event) => {setAuthor(event.target.value)}}
+          urlHandler={(event) => {setUrl(event.target.value)}}
+        />
+      </Togglable>
       <BlogList
         key='bloglist'
         blogs={blogs}
