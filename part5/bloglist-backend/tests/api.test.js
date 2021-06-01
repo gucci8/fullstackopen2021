@@ -73,14 +73,12 @@ test('4.10: new entry is saved', async () => {
     .post('/api/login')
     .send(loginUser)
     .set('Accept','application/json')
-    .expect('Content-Type', /application\/json/)
   
   await api
     .post('/api/blogs')
     .send(initialBlogs[0])
     .set('authorization', `bearer ${loggedUser.body.token}`)
     .set('Accept', 'application/json')
-    .expect('Content-Type', /application\/json/)
     .expect(200)
 
   const blogs = await Blog.find({})
@@ -97,7 +95,6 @@ test('4.11: If likes is missing, it defaults to 0', async () => {
     .post('/api/login')
     .send(loginUser)
     .set('Accept','application/json')
-    .expect('Content-Type', /application\/json/)
   
   const users = await User.find({})
   await api
@@ -109,7 +106,6 @@ test('4.11: If likes is missing, it defaults to 0', async () => {
     })
     .set('authorization', `Bearer ${loggedUser.body.token}`)
     .set('Accept', 'application/json')
-    .expect('Content-Type', /application\/json/)
     .expect(200)
   
   const blog = await Blog.findOne({ title: 'ccc' })
