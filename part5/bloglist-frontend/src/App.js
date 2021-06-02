@@ -66,15 +66,17 @@ const App = () => {
 
   const submitBlog = async (event) => {
     event.preventDefault()
-    const blog = {
+
+    const blog = await blogService.create({
       title: title,
       author: author,
       likes: 0,
       url: url,
       user: user
-    }
-    await blogService.create(blog)
+    })
+
     showError(`A new blog ${blog.title} by ${blog.author} added`, 'green')
+    blog.user = user
     setBlogs(blogs.concat(blog).sort((a, b) => b.likes - a.likes))
     setTitle('')
     setAuthor('')

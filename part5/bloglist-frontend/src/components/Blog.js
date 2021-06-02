@@ -24,11 +24,11 @@ const Blog = (props) => {
     <div style={blogStyle} key={props.blog.id}>
       <div style={hideWhenVisible}>
         {props.blog.title}, {props.blog.author}
-        <button onClick={toggleVisibility}>{'view'}</button>
+        <button onClick={toggleVisibility}>view</button>
       </div>
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} className='togglableContent'>
         {props.blog.title}, {props.blog.author}
-        <button onClick={toggleVisibility}>{'hide'}</button>
+        <button onClick={toggleVisibility}>hide</button>
         <div>
           <p>{props.blog.url}</p>
           {props.blog.likes} likes

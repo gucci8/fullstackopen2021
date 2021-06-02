@@ -10,21 +10,23 @@ const BlogForm = ({
   author,
   url
 }) => (
-  <form onSubmit={submitBlog}>
-    <div>
-      title:
-      <input value={title} onChange={titleHandler} />
-    </div>
-    <div>
-      author:
-      <input value={author} onChange={authorHandler} />
-    </div>
-    <div>
-      url:
-      <input value={url} onChange={urlHandler} />
-    </div>
-    <button type="submit">create</button>
-  </form>
+  <div className='formDiv'>
+    <form onSubmit={submitBlog}>
+      <div>
+        title:
+        <input id='title' value={title} onChange={titleHandler} />
+      </div>
+      <div>
+        author:
+        <input id='author' value={author} onChange={authorHandler} />
+      </div>
+      <div>
+        url:
+        <input id='url' value={url} onChange={urlHandler} />
+      </div>
+      <button type="submit">create</button>
+    </form>
+  </div>
 )
 
 BlogForm.propTypes = {
