@@ -32,7 +32,7 @@ const Blog = (props) => {
         <div>
           <p>{props.blog.url}</p>
           {props.blog.likes} likes
-          <button onClick={props.handleLike}>like</button>
+          <button id='likebtn' onClick={props.handleLike}>like</button>
           <p>Submitted by {props.blog.user.name}</p>
           <button onClick={props.handleDelete} style={showRemoveButton}>remove</button>
         </div>

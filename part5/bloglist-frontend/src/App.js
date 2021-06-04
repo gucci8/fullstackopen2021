@@ -122,6 +122,7 @@ const App = () => {
   if (user === null) {
     return (
       <div>
+        <h2>blogs</h2>
         <Togglable buttonLabel={'login'} >
           <LoginForm
             username={username}
