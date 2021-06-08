@@ -18,8 +18,9 @@ const Anecdote = ({ anecdote, handleClick }) => (
 const AnecdoteList = () => {
   const dispatch = useDispatch()
   const anecdotes = useSelector(state => state.anecdotes)
+  const filtStr = useSelector(state => state.filtStr)
 
-  const voteId = (anecdote) => {
+  const voteAnec = (anecdote) => {
     dispatch(vote(anecdote.id))
     dispatch(voteNotification(anecdote.content))
     setTimeout(() => {
@@ -29,12 +30,14 @@ const AnecdoteList = () => {
 
   return (
     <div>
-      {anecdotes.sort((a, b) => b.votes - a.votes).map(anecdote =>
-        <Anecdote
-          key={anecdote.id}
-          anecdote={anecdote}
-          handleClick={() => voteId(anecdote)}
-        />
+      {anecdotes.filter(a => a.content.toLowerCase().includes(filtStr.toLowerCase()))
+        .sort((a, b) => b.votes - a.votes)
+        .map(anecdote =>
+          <Anecdote
+            key={anecdote.id}
+            anecdote={anecdote}
+            handleClick={() => voteAnec(anecdote, anecdote.id)}
+          />
       )}
     </div>
   )
