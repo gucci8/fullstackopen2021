@@ -1,13 +1,9 @@
-const notificationAtStart = ''
-  
-const initialState = notificationAtStart
-
-const notificationReducer = (state = initialState, action) => {
+const notificationReducer = (state = '', action) => {
   switch (action.type) {
     case 'NEWANEC_NOTI':
-      return `You added '${action.data.content}'`
+      return `You added '${action.data}'`
     case 'VOTE_NOTI':
-      return `You voted '${action.data.content}'`
+      return `You voted '${action.data}'`
     case 'TIMER_OUT':
       return ''
     default:
@@ -16,24 +12,32 @@ const notificationReducer = (state = initialState, action) => {
 }
 
 export const newAnecNotification = (content) => {
-  return {
-    type: 'NEWANEC_NOTI',
-    data: { content }
+  return async dispatch => {
+    dispatch({
+      type: 'NEWANEC_NOTI',
+      data: content
+    })
+    setTimeout(() => {
+      dispatch(clearNotification())
+    }, 5000)
   }
 }
 
 export const voteNotification = (content) => {
-  return {
-    type: 'VOTE_NOTI',
-    data: { content }
+  return async dispatch => {
+    dispatch({
+      type: 'VOTE_NOTI',
+      data: content
+    })
+    setTimeout(() => {
+      dispatch(clearNotification())
+    }, 5000)
   }
 }
 
 export const clearNotification = () => {
-  const content = null
   return {
-    type: 'TIMER_OUT',
-    data: { content }
+    type: 'TIMER_OUT'
   }
 }
 
