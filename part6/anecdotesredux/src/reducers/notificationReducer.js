@@ -1,3 +1,5 @@
+let timeoutId = 0
+
 const notificationReducer = (state = '', action) => {
   switch (action.type) {
     case 'NEWANEC_NOTI':
@@ -13,11 +15,12 @@ const notificationReducer = (state = '', action) => {
 
 export const newAnecNotification = (content) => {
   return async dispatch => {
+    clearTimeout(timeoutId)
     dispatch({
       type: 'NEWANEC_NOTI',
       data: content
     })
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       dispatch(clearNotification())
     }, 5000)
   }
@@ -25,11 +28,12 @@ export const newAnecNotification = (content) => {
 
 export const voteNotification = (content) => {
   return async dispatch => {
+    clearTimeout(timeoutId)
     dispatch({
       type: 'VOTE_NOTI',
       data: content
     })
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       dispatch(clearNotification())
     }, 5000)
   }
