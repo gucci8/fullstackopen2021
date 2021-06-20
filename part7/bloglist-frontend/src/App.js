@@ -153,7 +153,7 @@ const App = () => {
 
   if (user === null) {
     return (
-      <div>
+      <div className='container'>
         <Menu user={null} handleLogout={handleLogout} />
         <h2>blog app</h2>
         <Switch>
@@ -181,13 +181,19 @@ const App = () => {
               errorMessage={errorMessage}
             />
           </Route>
+          <Route path='/users/:id'>
+            <User user={viewedUser} />
+          </Route>
+          <Route path='/users'>
+            <Users users={users} />
+          </Route>
         </Switch>
       </div>
     )
   }
 
   return (
-    <div>
+    <div className='container'>
       <Menu user={user} handleLogout={handleLogout} />
       <h2>blog app</h2>
       <Notification

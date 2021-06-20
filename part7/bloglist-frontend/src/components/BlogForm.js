@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Form, Button } from 'react-bootstrap'
 
 const BlogForm = ({
   submitBlog,
@@ -11,21 +12,34 @@ const BlogForm = ({
   url
 }) => (
   <div className='formDiv'>
-    <form onSubmit={submitBlog}>
-      <div>
-        title:
-        <input id='title' value={title} onChange={titleHandler} />
-      </div>
-      <div>
-        author:
-        <input id='author' value={author} onChange={authorHandler} />
-      </div>
-      <div>
-        url:
-        <input id='url' value={url} onChange={urlHandler} />
-      </div>
-      <button id='submitblog' type='submit'>create</button>
-    </form>
+    <Form onSubmit={submitBlog}>
+      <Form.Group>
+        <Form.Label>title:</Form.Label>
+        <Form.Control
+          type='text'
+          name='title'
+          value={title}
+          onChange={titleHandler}
+        />
+        <Form.Label>author:</Form.Label>
+        <Form.Control
+          type='text'
+          name='author'
+          value={author}
+          onChange={authorHandler}
+        />
+        <Form.Label>url:</Form.Label>
+        <Form.Control
+          type='text'
+          name='url'
+          value={url}
+          onChange={urlHandler}
+        />
+      </Form.Group>
+      <Button variant='primary' id='submitblog' type='submit'>
+        create
+      </Button>
+    </Form>
   </div>
 )
 

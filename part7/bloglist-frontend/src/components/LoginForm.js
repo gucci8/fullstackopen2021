@@ -1,5 +1,6 @@
 import React from 'react'
 import Notification from './Notification'
+import { Form, Button } from 'react-bootstrap'
 
 const LoginForm = ({
   login,
@@ -12,26 +13,25 @@ const LoginForm = ({
   <div>
     <h2>Log in to application</h2>
     <Notification message={errorMessage.msg} color={errorMessage.color} />
-    <form onSubmit={login}>
-      <div>
-        username
-        <input
-          id='username'
+    <Form onSubmit={login}>
+      <Form.Group>
+        <Form.Label>username:</Form.Label>
+        <Form.Control
+          type='text'
+          name='username'
           value={username}
           onChange={usernameHandler}
         />
-      </div>
-      <div>
-        password
-        <input
-          id='password'
-          type="password"
+        <Form.Label>password:</Form.Label>
+        <Form.Control
+          type='password'
+          name='password'
           value={password}
           onChange={passwordHandler}
         />
-      </div>
-      <button id='login-button' type='submit'>login</button>
-    </form>
+      </Form.Group>
+      <Button variant='primary' id='submitblog' type='submit'>login</Button>
+    </Form>
   </div>
 )
 

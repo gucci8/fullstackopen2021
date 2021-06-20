@@ -2,10 +2,17 @@ import React from 'react'
 import {
   Link
 } from 'react-router-dom'
+import { Table } from 'react-bootstrap'
 
 const Users = (props) => (
   <div>
-    <table>
+    <Table striped>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Blogs submitted</th>
+        </tr>
+      </thead>
       <tbody>
         {props.users.map(user => (
           <tr key={user.id}>
@@ -20,7 +27,7 @@ const Users = (props) => (
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   </div>
 )
 
