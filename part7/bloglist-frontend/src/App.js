@@ -16,7 +16,7 @@ import Users from './components/Users'
 import User from './components/User'
 
 import BlogList from './components/BlogList'
-import BlogsSimple from './components/BlogsSimple'
+import Blog from './components/Blog'
 
 import blogService from './services/blogService'
 import userService from './services/userService'
@@ -141,31 +141,47 @@ const App = () => {
     }, 3000)
   }
 
-  const match = useRouteMatch('/users/:id')
-  const viewedUser = match
-    ? users.find(user => user.id === match.params.id)
+  const blogMatch = useRouteMatch('/blogs/:id')
+  const viewedBlog = blogMatch
+    ? blogs.find(blog => blog.id === blogMatch.params.id)
+    : null
+
+  const userMatch = useRouteMatch('/users/:id')
+  const viewedUser = userMatch
+    ? users.find(user => user.id === userMatch.params.id)
     : null
 
   if (user === null) {
     return (
       <div>
+        <Menu user={null} handleLogout={handleLogout} />
         <h2>blog app</h2>
-        <Togglable buttonLabel={'login'} >
-          <LoginForm
-            username={username}
-            password={password}
-            usernameHandler={(event) => { setUsername(event.target.value) }}
-            passwordHandler={(event) => { setPassword(event.target.value) }}
-            login={handleLogin}
-            errorMessage={errorMessage}
-          />
-        </Togglable>
-        <BlogsSimple
-          key='bloglist'
-          blogs={blogs}
-          handleDelete={deleteHandler}
-          handleLike={likeHandler}
-        />
+        <Switch>
+          <Route path='/blogs/:id'>
+            <Blog
+              blog={viewedBlog}
+              handleDelete={() => { deleteHandler(viewedBlog) }}
+              handleLike={() => { likeHandler(viewedBlog) }}
+              loggedUser={null}
+            />
+          </Route>
+          <Route path='/blogs'>
+            <BlogList
+              key='bloglist'
+              blogs={blogs}
+            />
+          </Route>
+          <Route path={'/login'}>
+            <LoginForm
+              username={username}
+              password={password}
+              usernameHandler={(event) => { setUsername(event.target.value) }}
+              passwordHandler={(event) => { setPassword(event.target.value) }}
+              login={handleLogin}
+              errorMessage={errorMessage}
+            />
+          </Route>
+        </Switch>
       </div>
     )
   }
@@ -179,6 +195,14 @@ const App = () => {
         color={errorMessage.color}
       />
       <Switch>
+        <Route path='/blogs/:id'>
+          <Blog
+            blog={viewedBlog}
+            handleDelete={() => { deleteHandler(viewedBlog) }}
+            handleLike={() => { likeHandler(viewedBlog) }}
+            loggedUser={user}
+          />
+        </Route>
         <Route path='/blogs'>
           <Togglable buttonLabel={'create new blog'} >
             <BlogForm
@@ -194,9 +218,6 @@ const App = () => {
           <BlogList
             key='bloglist'
             blogs={blogs}
-            handleDelete={deleteHandler}
-            handleLike={likeHandler}
-            loggedUser={user}
           />
         </Route>
         <Route path='/users/:id'>
